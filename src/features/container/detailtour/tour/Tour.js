@@ -135,7 +135,7 @@ function Tour(props) {
   if (ngaydis && formatlaidate(checkngaydi())) {
     tour_ngay.push(ngaydis.find(x => x.ngay === formatlaidate(checkngaydi())).Tours.find(x => x.id === +id))
   }
-  console.log(tour_ngay);
+  
   const hide = () => {
     setState({
       ...state,
@@ -228,7 +228,7 @@ function Tour(props) {
         });
       } else if (stylepayment === 3) {
 
-        dispatch(addthanhtoan({ hoadon: { tourId, userId, nguoilon, treem, embe, ngaydi: state.date === "" ? formatlaidate(checkngaydi()) : state.date }, nguoilon, treem, embe, tongtien, "name": tour_ngay[0].name, "giatreem": tour_ngay[0].giatreem, "giaembe": tour_ngay[0].giaembe, "gianguoilon": tour_ngay[0].gianguoilon }))
+        dispatch(addthanhtoan({ hoadon: { tourId, userId, nguoilon, treem, embe, ngaydi: state.date === "" ? formatlaidate(checkngaydi()) : state.date }, nguoilon, treem, embe, tongtien, "name": tour_ngay[0].name, "giatreem": tour_ngay[0].giatreem, "giaembe": tour_ngay[0].giaembe, "gianguoilon": tour_ngay[0].gianguoilon, diachi: diachi, tenkhach: name, sdt: sdt }))
         history.push("/stripe");
       }
     }

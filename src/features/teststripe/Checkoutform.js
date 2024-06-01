@@ -21,13 +21,13 @@ export default function CheckoutForm(props) {
     const dispatch = useDispatch();
     const history = useHistory();
     const actionhoadon = async () => { await dispatch(hoadonData()) }
-
+    console.log("1212", props.tenkhachhang)
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (!stripe || !elements) {
             return;
         }
-        setBtn(false)
+     /*    setBtn(false) */
         var res = await stripeApi.poststripe({ email, price }).then(ok => {
             return ok.client_secret;
         })
@@ -47,7 +47,11 @@ export default function CheckoutForm(props) {
                 Axios.post("http://localhost:666/sendemail/", {
                     thanhtien: thanhtien,
                     email: email,
-                    tentour: tentour
+                    tentour: tentour,
+                    ngaydi: hoadon.ngaydi,
+                    tenkhachhang: props.tenkhachhang,
+                    sdt: props.sdt,
+                    diachi: props.diachi
                 })
                 message.success("Thanh toán thành công!");
                 dispatch(addhoadon({ tourId: hoadon.tourId, userId: hoadon.userId, embe: hoadon.embe, treem: hoadon.treem, nguoilon: hoadon.nguoilon, ngaydi: hoadon.ngaydi, thanhtien: thanhtien }));
@@ -56,7 +60,6 @@ export default function CheckoutForm(props) {
             }
         }
     };
-
     return (
         <form onSubmit={handleSubmit}>
             <Cardinput />

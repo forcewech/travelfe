@@ -198,13 +198,13 @@ function Header(props) {
                         <div className="row">
                             <div className="col-md-6">
                                 <p className="mb-2"><span>Họ tên:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">{user.name}</span></p>
-                                <p className="mb-2"><span>Công ty:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">Du lịch Nghệ An</span></p>
+                                <p className="mb-2"><span>Công ty:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">Công ty 5ChauMedia</span></p>
                                 <p className="mb-2"><span>Ngày sinh:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">{formatdate(user.ngaysinh)}</span></p>
                             </div>
                             <div className="col-md-6">
                                 <p className="mb-2"><span>Account:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">{user.email}</span></p>
                                 <p className="mb-2"><span>Địa chỉ:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">{user.diachi}</span></p>
-                                <p className="mb-2"><span>Website:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">Laisatthu.com.vn</span></p>
+                                <p className="mb-2"><span>Website:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">localhost:3000</span></p>
                             </div>
                             <p className="tab"><span>Châm ngôn:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">{user.chamngon}</span></p>
                         </div>
@@ -218,7 +218,7 @@ function Header(props) {
                         </div>
                         <div className="col-md-6">
                             <p className="mb-2"><span>Trách nhiệm:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">{users ? users.mota : ""}</span></p>
-                            <p className="mb-2"><span>Giám sát:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">Trần Sang</span></p>
+                            <p className="mb-2"><span>Giám sát:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user">Nguyễn Tiến Dũng</span></p>
                         </div>
                         <p className="tab"><span>Kỹ năng:&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="tt-user text-justify">{user.kynang}</span></p>
                     </div>
