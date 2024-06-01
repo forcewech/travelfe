@@ -7,15 +7,38 @@ import Footer from "../trangchu/footer/Footer";
 import "./listtour.css";
 import { useSelector } from "react-redux";
 import "./checkactive.js";
+import { Pagination } from "antd";
+import axiosClient from "../../../api/axiosClient.js";
+
 export default function Listtour() {
   const binhluans = useSelector((state) => state.binhluans.binhluan.data);
-  const tours = useSelector((state) => state.tours.tour.data);
+  const [tours, setTours] = useState(null);
+  const [total, setTotal] = useState(0);
+
   const [state, setState] = useState({
     check: "trong",
     statetrongnuoc: "",
     statenuocngoai: "",
   });
-  const [star, setstar] = useState("");
+  const [current, setCurrent] = useState(1);
+  const onChange = (page) => {
+    setCurrent(page);
+  };
+
+  useEffect(() => {
+    axiosClient
+      .get("/tours/paginate/tour", {
+        params: {
+          page: current,
+          size: 10,
+          vitri: state.check === "trong" ? 1 : 2,
+        },
+      })
+      .then((res) => {
+        setTotal(res.totalItems);
+        setTours(res.data);
+      });
+  }, [current]);
 
   const formatdate = (e) => {
     if (e) {
@@ -57,6 +80,7 @@ export default function Listtour() {
     }
     return diem;
   };
+  console.log("tours", tours);
   var tourtrongnuoc = [];
   if (tours) {
     var sort = [];
@@ -233,84 +257,6 @@ export default function Listtour() {
               <Option value="trong">Tour trong nước</Option>
               <Option value="ngoai">Tour nước ngoài</Option>
             </Select>
-            {/* {state.check === "trong" ? (
-              <div>
-                <h4 className="mt-3">Vùng</h4>
-                <Select
-                  className="w-100"
-                  defaultValue="trung"
-                  style={{ width: 120 }}
-                >
-                  <Option value="bac">Miền Bắc</Option>
-                  <Option value="trung">Miền Trung</Option>
-                  <Option value="nam">Miền Nam</Option>
-                </Select>
-              </div>
-            ) : (
-              ""
-            )}
-            <h4 className="mt-3">Đánh giá</h4>
-            <div className="star-mid text-primary">
-              <ul>
-                <li className="active">
-                  <span
-                    onClick={() => checkstar(5)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <Rate value="5" disabled />
-                    <span className="ml-2">từ 5 sao</span>
-                    <br />
-                  </span>
-                </li>
-                <li>
-                  <span
-                    onClick={() => checkstar(4)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <Rate value="4" disabled />
-                    <span className="ml-2">từ 4 sao</span>
-                    <br />
-                  </span>
-                </li>
-                <li>
-                  <span
-                    onClick={() => checkstar(3)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <Rate value="3" disabled />
-                    <span className="ml-2">từ 3 sao</span>
-                    <br />
-                  </span>
-                </li>
-                <li>
-                  <span
-                    onClick={() => checkstar(2)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <Rate value="2" disabled />
-                    <span className="ml-2">từ 2 sao</span>
-                    <br />
-                  </span>
-                </li>
-                <li>
-                  <span
-                    onClick={() => checkstar(1)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <Rate value="1" disabled />
-                    <span className="ml-2">từ 1 sao</span>
-                    <br />
-                  </span>
-                </li>
-              </ul>
-            </div> */}
-            {/* <div className="star-mid text-primary">
-                            <span onClick={() => checkstar(5)} style={{ cursor: "pointer" }}><Rate value="5" disabled /><span className="ml-2">từ 5 sao</span><br /></span>
-                            <span onClick={() => checkstar(4)} style={{ cursor: "pointer" }}><Rate value="4" disabled /><span className="ml-2">từ 4 sao</span><br /></span>
-                            <span onClick={() => checkstar(3)} style={{ cursor: "pointer" }}><Rate value="3" disabled /><span className="ml-2">từ 3 sao</span><br /></span>
-                            <span onClick={() => checkstar(2)} style={{ cursor: "pointer" }}><Rate value="2" disabled /><span className="ml-2">từ 2 sao</span><br /></span>
-                            <span onClick={() => checkstar(1)} style={{ cursor: "pointer" }}><Rate value="1" disabled /><span className="ml-2">từ 1 sao</span><br /></span>
-                        </div> */}
           </div>
           <div className="col-md-9">
             <div className="title text-center mt-3">
@@ -430,6 +376,20 @@ export default function Listtour() {
                           </Link>
                         </div>
                       ))}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "32px",
+                    marginTop: "32px",
+                  }}
+                >
+                  <Pagination
+                    current={current}
+                    onChange={onChange}
+                    total={total}
+                  />
                 </div>
               </div>
             </div>
