@@ -38,7 +38,7 @@ export default function Listtour() {
         setTotal(res.totalItems);
         setTours(res.data);
       });
-  }, [current]);
+  }, [current, state.check]);
 
   const formatdate = (e) => {
     if (e) {
